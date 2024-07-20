@@ -1,17 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router";
 import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 
 
-const itemDetail = () => {
+const ItemDetail = () => {
     const { store } = useContext(Context)
-    const { nature, id } = useParams
-    const [detail, setDetail] = useState(null)
+
+    const { nature, id } = useParams()
+
+    const [detail, setdetail] = useState(null)
 
     const findItem = () => {
         for (let endP of store.endpoints) {
             let result = store[endP].find((item) => item._id == id)
-            setDetail(result)
+            console.log(result)
+            setdetail(result)
         }
     }
 
@@ -20,8 +23,18 @@ const itemDetail = () => {
     }, [store.people])
 
     return (
-        <h1>hollaa</h1>
+        <>
+            {
+                nature === "people" ?
+                    <div>
+                        <h1>Poople</h1>
+                        <p>{detail?.properties?.name}</p>
+                    </div> :
+                    nature === "planet" ?
+                        <h1>Somos los planetas</h1> : null
+            }
+        </>
     )
 }
 
-export default itemDetail
+export default ItemDetail;

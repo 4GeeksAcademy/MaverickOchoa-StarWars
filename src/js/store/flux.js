@@ -6,24 +6,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 
 			urlBase: 'https://www.swapi.tech/api',
-			endPoints: ['people'],
-			people: []
+			endpoints: ['people'],
+			people: [],
+			planets: [],
+			vehicles: [],
+			favorites: []
+
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
+
 			getInfo: async () => {
 				let store = getStore()
 
 				try {
-					for (let endP of store.endPoints) {
+					for (let endP of store.endpoints) {
 						let response = await fetch(`${store.urlBase}/${endP}`)
 						let data = await response.json()
 
@@ -38,6 +34,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				} catch (error) {
 
+				}
+			},
+			addFavorites: (fav) => {
+				let store = getStore()
+
+				let exists = store.favorites.some((item) => item._id == fav._id)
+				if (exists) {
+					let newFav = store.favorites.filter((item) => item._id != fav._id)
+					setStore({
+						favorites: newFav
+					})
+				} else {
+					setStore({
+						favorites: [...store.favorites, fav]
+					})
 				}
 			}
 		}
