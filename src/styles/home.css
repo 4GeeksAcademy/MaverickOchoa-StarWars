@@ -1,6 +1,14 @@
-.card{
-    min-width: 350px;;
+.carrusel{
+    overflow-y: scroll;
+    
 }
-.card img{
-    width: 350px;
+
+.cards{
+    min-width: 300px;
+
 }
+.cards img{
+    width: 300px;
+
+}
+

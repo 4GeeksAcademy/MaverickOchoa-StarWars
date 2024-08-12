@@ -6,7 +6,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			],
 
 			urlBase: 'https://www.swapi.tech/api',
-			endpoints: ['people'],
+			endpoints: ['people', 'planets'],
 			people: [],
 			planets: [],
 			vehicles: [],
@@ -50,6 +50,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 						favorites: [...store.favorites, fav]
 					})
 				}
+			},
+
+			deleteFav: (fav) => {
+				let store = getStore()
+
+				let newFav = store.favorites.filter((item) => item._id != fav._id)
+				setStore({
+					favorites: newFav
+				})
 			}
 		}
 	};
